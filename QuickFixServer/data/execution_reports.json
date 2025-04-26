@@ -1,0 +1,21 @@
+﻿[
+  {
+    "OrderID": "1001",
+    "ClOrdID": "2001",
+    "ExecID": "3001",
+    "ExecType": "0",
+    "OrdStatus": "0",
+    "Symbol": "AAPL",
+    "Side": "1",
+    "LeavesQty": 50,
+    "CumQty": 50,
+    "AvgPx": 150.00,
+    "Account": "CTOG000001",
+    "SecuritySubType": "SAEQ",
+    "OrderQty": 8,
+    "OrdType": "2",
+    "Price": 6.5,
+    "TimeInForce": "3",
+    "TransactTime": "20241021-09:23:35.524"
+  }
+]

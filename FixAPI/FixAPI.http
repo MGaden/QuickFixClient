@@ -1,0 +1,6 @@
+@FixAPI_HostAddress = http://localhost:5286
+
+GET {{FixAPI_HostAddress}}/swagger/
+Accept: application/json
+
+###

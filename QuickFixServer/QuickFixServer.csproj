@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="config\server.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="config\FIX44.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\execution_reports.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX40.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX41.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX42.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX43.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX44.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="dlls\QuickFix.FIX50.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="dlls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="QuickFix">
+      <HintPath>dlls\QuickFix.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX40">
+      <HintPath>dlls\QuickFix.FIX40.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX41">
+      <HintPath>dlls\QuickFix.FIX41.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX42">
+      <HintPath>dlls\QuickFix.FIX42.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX43">
+      <HintPath>dlls\QuickFix.FIX43.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX44">
+      <HintPath>dlls\QuickFix.FIX44.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFix.FIX50">
+      <HintPath>dlls\QuickFix.FIX50.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
