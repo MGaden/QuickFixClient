@@ -1,0 +1,23 @@
+﻿[
+  {
+    "Account": "1020973",
+    "ClOrdID": "148046",
+    "Currency": "SAR",
+    "HandlInst": "3",
+    "SecurityIDSource": "2",
+    "OrigClOrdID": "148045",
+    "OrderID": "922111716",
+    "OrderQty": 20,
+    "OrdType": "2",
+    "Price": 45,
+    "SecurityID": "B3D4VQ2",
+    "Side": "1",
+    "Symbol": "2001",
+    "TimeInForce": "0",
+    "TransactTime": "20221117-12:59:05",
+    "SettlCurrency": "048",
+    "ExDestination": "XSAU",
+    "ForexReq": "0",
+    "SecurityExchange": "XSAU"
+  }
+]
