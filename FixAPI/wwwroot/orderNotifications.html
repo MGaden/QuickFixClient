@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignalR Notification Client</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+    <style>
+        /* Simple styling for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #subscribeSection, #notificationsPanel, #subscribedNotificationsPanel {
+            margin-bottom: 20px;
+        }
+
+        #notificationsPanel, #subscribedNotificationsPanel {
+            padding: 10px;
+            border: 1px solid #ddd;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        #notificationsPanel {
+            background-color: #f9f9f9;
+        }
+
+        #subscribedNotificationsPanel {
+            background-color: #e8f7e8;
+        }
+
+        .notification {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Connect to SignalR Hub with JWT Token</h2>
+
+    <div>
+        <label for="jwtToken">Enter JWT Token:</label>
+        <input type="text" id="jwtToken" placeholder="JWT Token">
+        <button onclick="connectToHub()">Connect</button>
+    </div>
+
+    <h1>SignalR Notification Client</h1>
+
+    <div id="subscribeSection">
+        <label for="orderIdInput">Client name to Subscribe:</label>
+        <input type="text" id="orderIdInput" placeholder="Enter client name">
+        <button onclick="subscribeToOrder()">Subscribe</button>
+    </div>
+
+    <h2>All Notifications</h2>
+    <div id="notificationsPanel">
+        <!-- All notifications will appear here -->
+    </div>
+
+    <h2>Subscribed Order Notifications</h2>
+    <div id="subscribedNotificationsPanel">
+        <!-- Notifications for the subscribed order will appear here -->
+    </div>
+
+    <script>
+        let connection;
+
+        async function connectToHub() {
+            // Get the JWT token from the textbox
+            const token = document.getElementById("jwtToken").value;
+
+            // Check if the token is provided
+            if (!token) {
+                alert("Please enter a JWT token.");
+                return;
+            }
+
+            // Initialize the SignalR connection with the token
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("/notifications", { // Adjust URL to match your hub route
+                    accessTokenFactory: () => token
+                })
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            // Handle incoming notifications for all orders
+            connection.on("ReceiveAllNotification", message => {
+                displayNotification("notificationsPanel", message);
+            });
+
+            // Handle incoming notifications for subscribed orders
+            connection.on("ReceiveOrderNotification", message => {
+                displayNotification("subscribedNotificationsPanel", message);
+            });
+
+            // Start the SignalR connection
+            try {
+                await connection.start();
+                console.log("Connected to SignalR hub");
+            } catch (err) {
+                console.error("Error connecting to SignalR hub:", err);
+            }
+        }
+
+        // Function to subscribe to a specific client name
+        async function subscribeToOrder() {
+            if (!connection || connection.state !== "Connected") {
+                alert("Please connect to the SignalR hub first.");
+                return;
+            }
+
+            const clientName = document.getElementById("orderIdInput").value;
+            if (!clientName) {
+                alert("Please enter a client name to subscribe.");
+                return;
+            }
+
+            // Clear previous notifications in the subscribed panel
+            document.getElementById("subscribedNotificationsPanel").innerHTML = "";
+            console.log(`Subscribed to client: ${clientName}`);
+
+            try {
+                await connection.invoke("SubscribeToAccount", clientName);
+            } catch (err) {
+                console.error("Subscription failed:", err);
+            }
+        }
+
+        // Function to display a notification in a specified panel
+        function displayNotification(panelId, message) {
+            const panel = document.getElementById(panelId);
+            const notificationElement = document.createElement("div");
+            notificationElement.classList.add("notification");
+            notificationElement.textContent = message;
+            panel.appendChild(notificationElement);
+            panel.scrollTop = panel.scrollHeight; // Auto-scroll to the latest message
+        }
+    </script>
+</body>
+</html>
